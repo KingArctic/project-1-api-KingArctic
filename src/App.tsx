@@ -1,18 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
+import './include/bootstrap';
 import './App.css';
-import { FirstComponent } from './components/first-component';
-import { SecondComponent } from './components/second-component';
-import { ThirdComponent } from './components/third-component';
+import { BrowserRouter, Route } from 'react-router-dom';
+import { NavComponent } from './components/nav/nav-component';
+import { HomeComponent } from './components/home-component';
+import { SignInComponent } from './components/sign-in-component';
+import { UsersComponent } from './components/users/user-component';
+import { RequestsComponent } from './components/requests/requests-component';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-    <FirstComponent />
-      My Application
-      <SecondComponent />
-      <ThirdComponent />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <NavComponent />
+        <Route path="/home" component={HomeComponent}/>
+        <Route path="/sign-in" component={SignInComponent}/>
+        <Route path="/users" component={UsersComponent}/>
+        <Route path="/requests" component={RequestsComponent}/>
+      </div>
+    </BrowserRouter>
   );
 }
 
