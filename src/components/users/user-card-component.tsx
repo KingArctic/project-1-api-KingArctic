@@ -16,11 +16,11 @@ export class UserCardComponent extends React.Component<IUserCardProps, IState> {
             update: true
         };
         console.log(this.state.update);
-        this.testfunc = this.testfunc.bind(this);
-        this.testfunc2 = this.testfunc2.bind(this);
+        this.toggle = this.toggle.bind(this);
+        this.update = this.update.bind(this);
     }
 
-    testfunc() {
+    toggle() {
         let test2 = this.state.update;
         this.setState({
             update: !test2
@@ -28,12 +28,21 @@ export class UserCardComponent extends React.Component<IUserCardProps, IState> {
         console.log(this.state.update);
     }
 
-    testfunc2() {
+    async update() {
+        const resp = await fetch('http://localhost:8081/users', {
+            method: 'PATCH',
+            credentials: 'include',
+            body: JSON.stringify(this.props.user),
+            headers: {
+                'content-type': 'application/json'
+            }
+        });
+        console.log(resp);
+
         let test2 = this.state.update;
         this.setState({
             update: !test2
         })
-        console.log(this.state.update);
     }
     updateFirstName = (event) => {
         this.props.user.firstname = event.target.value
@@ -64,16 +73,16 @@ export class UserCardComponent extends React.Component<IUserCardProps, IState> {
                     <li className="list-group-item">Email: {user.email}</li>
                     <li className="list-group-item">Role: {user.role}</li>
                     <li className="list-group-item">
-                        <button className="btn btn-danger" onClick={this.testfunc}>Update</button>
+                        <button className="btn btn-danger" onClick={this.toggle}>Update</button>
                     </li>
                 </ul>}
                 {!this.state.update && <ul className="list-group list-group-flush">
-                    <li className="list-group-item">Hero Name: <input type="text" defaultValue={user.heroname} onChange={this.updateHeroName}></input></li>
-                    <li className="list-group-item">First Name: <input type="text" defaultValue={user.firstname} onChange={this.updateFirstName}></input></li>
-                    <li className="list-group-item">Last Name:  <input type="text" defaultValue={user.lastname} onChange={this.updateLastName}></input></li>
-                    <li className="list-group-item">Email: <input type="text" defaultValue={user.email} onChange={this.updateEmail}></input></li>
+                    <li className="list-group-item"><input className="form-control" type="text" placeholder="Hero Name" defaultValue={user.heroname} onChange={this.updateHeroName}></input></li>
+                    <li className="list-group-item"><input className="form-control" type="text" placeholder="First Name" defaultValue={user.firstname} onChange={this.updateFirstName}></input></li>
+                    <li className="list-group-item"><input className="form-control" type="text" placeholder="Last Name" defaultValue={user.lastname} onChange={this.updateLastName}></input></li>
+                    <li className="list-group-item"><input className="form-control" type="text" placeholder="Email" defaultValue={user.email} onChange={this.updateEmail}></input></li>
                     <li className="list-group-item">
-                        <button className="btn btn-danger" onClick={this.testfunc2}>Update</button>
+                        <button className="btn btn-danger" onClick={this.update}>Update</button>
                     </li>
                 </ul>}
             </div>

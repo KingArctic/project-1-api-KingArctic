@@ -1,7 +1,7 @@
 import React from 'react';
 import './include/bootstrap';
 import './App.css';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { NavComponent } from './components/nav/nav-component';
 import { HomeComponent } from './components/home-component';
 import { SignInComponent } from './components/sign-in-component';
@@ -13,10 +13,15 @@ const App: React.FC = () => {
     <BrowserRouter>
       <div className="App">
         <NavComponent />
-        <Route path="/home" component={HomeComponent}/>
-        <Route path="/sign-in" component={SignInComponent}/>
-        <Route path="/users" component={UsersComponent}/>
-        <Route path="/requests" component={RequestsComponent}/>
+        {/* <div id="main-content-container">
+        <Switch>
+          <Route component={HomeComponent} /> */}
+          <Route path="/home" component={HomeComponent} />
+          <Route path="/sign-in" component={SignInComponent} />
+          <Route path="/users" component={UsersComponent} />
+          <Route path="/requests" component={RequestsComponent} />
+        {/* </Switch>
+        </div> */}
       </div>
     </BrowserRouter>
   );
