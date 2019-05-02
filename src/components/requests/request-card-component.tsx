@@ -25,7 +25,6 @@ export class RequestCardComponent extends React.PureComponent<IRequestCardProps,
             statusSelection: tempStatus,
             requestPackage: new RequestPackage(this.props.request.requestid, this.props.request.authorid, this.props.request.datesubmitted, this.props.request.description, tempStatus, tempType, this.props.request.imageurl)
         };
-        console.log(this.state.update);
         this.toggle = this.toggle.bind(this);
         this.update = this.update.bind(this);
     }
@@ -34,7 +33,6 @@ export class RequestCardComponent extends React.PureComponent<IRequestCardProps,
         await this.setState({
             update: !test2
         })
-        console.log(this.state.update);
     }
 
     async update() {
@@ -46,22 +44,30 @@ export class RequestCardComponent extends React.PureComponent<IRequestCardProps,
                 'content-type': 'application/json'
             }
         });
+
         console.log(resp);
 
         this.toggle();
     }
     updateStatus = async (event) => {
         await this.setState({
-            statusSelection: event.target.value
-        })
+            requestPackage: {
+                ...this.state.requestPackage,
+                status: parseFloat(event.target.value)
+            }
+        });
+        this.update();
     }
     updateType = async (event) => {
         await this.setState({
-            typeSelection: parseFloat(event.target.value)
-        })
+            typeSelection: parseFloat(event.target.value),
+            requestPackage: {
+                ...this.state.requestPackage,
+                type: parseFloat(event.target.value)
+            }
+        });
     }
     updateDescription = async (event) => {
-        this.props.request.description = event.target.value
         await this.setState({
             requestPackage: {
                 ...this.state.requestPackage,
@@ -70,6 +76,7 @@ export class RequestCardComponent extends React.PureComponent<IRequestCardProps,
         });
     }
 
+    //#region Conversion
     returnStatusNumber(status: string) {
         switch (status) {
             case 'PENDING':
@@ -145,10 +152,7 @@ export class RequestCardComponent extends React.PureComponent<IRequestCardProps,
                 return 'No Type'
         }
     }
-
-    updateStatusAndType() {
-
-    }
+    //#endregion
 
     render() {
         const requestState = this.state.requestPackage;
@@ -170,11 +174,12 @@ export class RequestCardComponent extends React.PureComponent<IRequestCardProps,
                     <li className="list-group-item">Type: {type}</li>
                     <li className="list-group-item">Status: {status}</li>
                     <li className="list-group-item">Resolver: {(requestProp.resolverfirst ? requestProp.resolverfirst : '') + ' ' + (requestProp.resolverlast ? requestProp.resolverlast : '')}</li>
-                    <li className="list-group-item">
+                    {(status === 'PENDING' || status === 'REQUIRES MORE INFO') && <li className="list-group-item">
                         <button className="btn btn-danger" onClick={this.toggle}>Update</button>
-                    </li>
+                    </li>}
                 </ul>}
                 {!this.state.update && <ul className="list-group list-group-flush">
+                    <li className="list-group-item">Author: {requestProp.authorfirst + ' ' + requestProp.authorlast}</li>
                     <li className="list-group-item"><input className="form-control" type="text" placeholder="Description" defaultValue={requestState.description} onChange={this.updateDescription}></input></li>
                     <select className="form-control" value={this.state.typeSelection} onChange={this.updateType}>
                         <option value={1}>Hero Work</option>
@@ -186,14 +191,16 @@ export class RequestCardComponent extends React.PureComponent<IRequestCardProps,
                         <option value={7}>Extra Training</option>
                         <option value={8}>Work Order</option>
                     </select>
-                    <select className="form-control" value={this.state.statusSelection} onChange={this.updateStatus}>
-                        <option value={1}>PENDING</option>
-                        <option value={2}>APPROVED</option>
-                        <option value={3}>DENIED</option>
-                        <option value={4}>REQUIRES MORE INFO</option>
-                    </select>
+                    <li className="list-group-item">Resolver: {(requestProp.resolverfirst ? requestProp.resolverfirst : '') + ' ' + (requestProp.resolverlast ? requestProp.resolverlast : '')}</li>
                     <li className="list-group-item">
-                        <button className="btn btn-danger" onClick={this.update}>Update</button>
+                        <button className="btn btn-success" value={2} onClick={this.updateStatus}>Approve</button>
+                        <div className="divider"></div>
+                        <button className="btn btn-danger" value={3} onClick={this.updateStatus}>Deny</button>
+                        <br></br>
+                        <br></br>
+                        <button className="btn btn-info" value={4} onClick={this.updateStatus}>More Info</button>
+                        <div className="divider"></div>
+                        <button className="btn btn-warning" value={1} onClick={this.toggle}>Cancel</button>
                     </li>
                 </ul>}
             </div>

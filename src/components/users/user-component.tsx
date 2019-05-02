@@ -93,7 +93,7 @@ export class UsersComponent extends React.Component<any, IState> {
   render() {
     return (
       <div className="container">
-        <input className="form-contorl" onChange={this.changeUser} />
+        {this.state.selection > 0 && <input className="form-contorl" onChange={this.changeUser} />}
         <select value={this.state.selection} onChange={this.changeSelection}>
           <option value={0}>All Users</option>
           <option value={1}>By ID</option>
