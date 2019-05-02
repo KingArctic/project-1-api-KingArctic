@@ -175,7 +175,7 @@ export class UserCardComponent extends React.Component<IUserCardProps, IState> {
         return (
             <div key={'user-' + user.userid} className="card col-md-4 col-sm-6 col-xs-12">
                 <img src={user.imageurl}
-                    className="card-img-top"
+                    className="card-img-top card-background"
                     alt="..." />
                 <div className="card-body">
                     <h5 className="card-title">{user.heroname}</h5>
