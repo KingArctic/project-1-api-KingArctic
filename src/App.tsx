@@ -13,15 +13,12 @@ const App: React.FC = () => {
     <BrowserRouter>
       <div className="App">
         <NavComponent />
-        {/* <div id="main-content-container">
-        <Switch>
-          <Route component={HomeComponent} /> */}
+        <div id="main-content-container">
           <Route path="/home" component={HomeComponent} />
           <Route path="/sign-in" component={SignInComponent} />
           <Route path="/users" component={UsersComponent} />
           <Route path="/requests" component={RequestsComponent} />
-        {/* </Switch>
-        </div> */}
+          </div>
       </div>
     </BrowserRouter>
   );
