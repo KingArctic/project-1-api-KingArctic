@@ -1,9 +1,10 @@
 export default class StudentRequest {
     requestid: number;
+    authorid: number;
     authorfirst: string; 
     authorlast: string; 
-    datesubmitted: number;
-    dateresolved: number;
+    datesubmitted: Date;
+    dateresolved: Date;
     description: string;
     resolverfirst: string;
     resolverlast: string;
@@ -11,9 +12,10 @@ export default class StudentRequest {
     type: string;
     imageurl: string;
 
-    constructor(requestid: number, authorfirst: string, authorlast: string, datesubmitted: number, dateresolved: number, 
+    constructor(requestid: number, authorid: number, authorfirst: string, authorlast: string, datesubmitted: Date, dateresolved: Date, 
         description: string, resolverfirst: string, resolverlast: string, status: string, type: string, imageurl: string) {
         this.requestid = requestid;
+        this.authorid = authorid;
         this.authorfirst = authorfirst;
         this.authorlast = authorlast;
         this.datesubmitted = datesubmitted;
