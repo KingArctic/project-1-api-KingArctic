@@ -1,6 +1,7 @@
 import React from 'react';
 import StudentRequest from '../../classes/request';
 import { RequestCardComponent } from './request-card-component';
+import { AddRequestCardComponent } from './request-add-card-component';
 
 
 interface IState {
@@ -16,7 +17,7 @@ export class RequestsComponent extends React.Component<any, IState> {
     this.state = {
       requests: [],
       selection: 0,
-      input: 0
+      input: 0,
     };
   }
 
@@ -125,12 +126,7 @@ export class RequestsComponent extends React.Component<any, IState> {
           {this.state.requests.map(request => (
             <RequestCardComponent key={request.requestid} request={request} />
           ))}
-          <div key={0} className="card col-md-4 col-sm-6 col-xs-12">
-            <br></br>
-            <div className="card-body">
-              <button className="btn btn-info btn-lg">Add New Request</button>
-            </div>
-          </div>
+            <AddRequestCardComponent />
         </div>
       </div>
     );
