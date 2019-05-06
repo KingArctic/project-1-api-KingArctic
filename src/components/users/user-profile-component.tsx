@@ -12,7 +12,7 @@ interface IState {
     userPackage: UserPackage;
 }
 
-export class UserCardComponent extends React.Component<IUserCardProps, IState> {
+export class UserProfileComponent extends React.Component<IUserCardProps, IState> {
     constructor(props: any) {
         super(props);
         let tempRole = 0;
@@ -206,7 +206,7 @@ export class UserCardComponent extends React.Component<IUserCardProps, IState> {
                 break;
         }
         return (
-            <div key={'user-' + user.userid} className="card col-md-4 col-sm-6 col-xs-12">
+            <div key={'user-' + user.userid} className="card">
                 <img src={user.imageurl}
                     className="card-img-top card-background"
                     alt="..." />

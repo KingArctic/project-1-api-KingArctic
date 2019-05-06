@@ -4,6 +4,7 @@ import RequestPackage from '../../classes/request-package';
 
 interface IRequestCardProps {
     request: StudentRequest;
+    role: string;
 }
 
 
@@ -206,12 +207,14 @@ export class RequestCardComponent extends React.PureComponent<IRequestCardProps,
                     </select>
                     <li className="list-group-item">Resolver: {(requestProp.resolverfirst ? requestProp.resolverfirst : '') + ' ' + (requestProp.resolverlast ? requestProp.resolverlast : '')}</li>
                     <li className="list-group-item">
-                        <button className="btn btn-success" value={2} onClick={this.updateStatus}>Approve</button>
-                        <div className="divider"></div>
-                        <button className="btn btn-danger" value={3} onClick={this.updateStatus}>Deny</button>
-                        <br></br>
-                        <br></br>
-                        <button className="btn btn-info" value={4} onClick={this.updateStatus}>More Info</button>
+                        {this.props.role !== 'Student' && <>
+                            <button className="btn btn-success" value={2} onClick={this.updateStatus}>Approve</button>
+                            <div className="divider"></div>
+                            <button className="btn btn-danger" value={3} onClick={this.updateStatus}>Deny</button>
+                            <br></br>
+                            <br></br>
+                            <button className="btn btn-info" value={4} onClick={this.updateStatus}>More Info</button>
+                        </>}
                         <div className="divider"></div>
                         <button className="btn btn-warning" value={1} onClick={this.cancel}>Cancel</button>
                     </li>
